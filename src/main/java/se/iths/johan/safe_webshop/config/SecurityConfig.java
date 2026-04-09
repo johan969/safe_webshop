@@ -12,6 +12,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private final OttSuccessHandler ottSuccessHandler;
+
+    public SecurityConfig(OttSuccessHandler ottSuccessHandler) {
+        this.ottSuccessHandler = ottSuccessHandler;
+    }
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
