@@ -1,6 +1,6 @@
 package se.iths.johan.safe_webshop.config;
 
-
+import se.iths.johan.safe_webshop.security.OttSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
