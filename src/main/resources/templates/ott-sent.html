@@ -7,7 +7,16 @@
 <body>
 <h1>ott-sent</h1>
 
-<h1>En länk har skickats till din email eller till consolen</h1>
+
+<form action="/ott/generate" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+    <input type="hidden" name="username" th:value="${#authentication.name}"/>
+
+    <button type="submit">Skicka länk till konsolen </button>
+</form>
+
+
 
 </body>
 </html>

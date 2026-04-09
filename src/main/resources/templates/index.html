@@ -1,11 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<h1>Home page</h1>
+
+<h2>Säker webshop</h2>
+
+<div sec:authorize="isAnonymous()">
+    <a href="/login">Logga in</a>
+</div>
+
+<div sec:authorize="isAuthenticated()">
+    <span>välkommen, <b sec:authentication="name">User</b>!</span>
+    <br>
+
+    <a href="/profile">Min Profil</a>
+
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logga ut</button>
+    </form>
+</div>
+
+
 
 </body>
 </html>
