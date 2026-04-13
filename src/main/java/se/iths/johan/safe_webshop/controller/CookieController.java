@@ -45,7 +45,7 @@ public class CookieController {
         }
 
         for (Cookie cookie : cookies) {
-            if (cookieName.equals(cookie.getName())) {
+            if (cookie.getName().equals(cookieName)) {
                 return cookie.getValue();
             }
         }
