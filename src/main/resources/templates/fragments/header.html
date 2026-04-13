@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Webshop</title>
+</head>
+<body>
+
+<header th:fragment="header">
+    <h1>Webshop</h1>
+    <nav>
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/products}">Produkter</a>
+        <a th:href="@{/cart}">Kundvagn</a>
+        <a th:href="@{/profile}">Profil</a>
+
+        <span th:if="${#authorization.expression('isAuthenticated()')}">
+            <a th:href="@{/logout}">Logga ut</a>
+        </span>
+
+        <span th:if="${#authorization.expression('!isAuthenticated()')}">
+            <a th:href="@{/login}">Logga in</a>
+
+        </span>
+
+    </nav>
+
+</header>
+
+</body>
+</html>
