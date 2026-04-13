@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+</head>
+<body>
+<h2>Your cart</h2>
+<div th:each="item : ${cartItems}">
+    <p th:text="${item.key.name}"></p>
+    <p>Quantity: <span th:text="${item.value}"></span></p>
+
+    <form th:action="@{/cart/remove/{id}(id=${item.key.id})}" method="=post">
+        <button type="submit">Remove from cart</button>
+    </form>
+
+    <h3>Total: <span th:text="${totalPrice}"></span> kr//valuta</h3>
+
+    <form th:action="@{/checkout}" method="post">
+        <button type="submit">Place order</button>
+    </form>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+</head>
+<body>
+<h2>Products</h2>
+
+<div th:each="product : ${products}">
+    <h3 th:text="${product.name}"></h3>
+    <p th:text="${product.price}"></p>
+
+    <form th:action="@{/cart/add/{id}(id=${product.id})}" method="post">
+        <button type="submit">Add to cart</button>
+    </form>
+</div>
+
+</body>
+</html>
