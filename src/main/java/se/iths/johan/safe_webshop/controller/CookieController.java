@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class CookieController {
     @GetMapping("/")
-    public String cookie(HttpServletRequest request, Model model) {
+    public String hello(HttpServletRequest request, Model model) {
         model.addAttribute("hasConsent", hasConsent(request));
         return "index";
     }
