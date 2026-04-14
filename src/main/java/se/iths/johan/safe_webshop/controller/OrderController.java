@@ -5,10 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import se.iths.johan.safe_webshop.model.Cart;
-import se.iths.johan.safe_webshop.model.Order;
-import se.iths.johan.safe_webshop.model.OrderItem;
-import se.iths.johan.safe_webshop.model.Product;
+import se.iths.johan.safe_webshop.model.*;
 import se.iths.johan.safe_webshop.repository.AppUserRepository;
 import se.iths.johan.safe_webshop.repository.OrderRepository;
 import se.iths.johan.safe_webshop.repository.ProductRepository;
@@ -34,10 +31,15 @@ public class OrderController {
     public String checkout(@ModelAttribute("cart") Cart cart,
                            Principal principal) { //Principal = inloggad användare
 
-        if (principal == null) {
+        String username = principal.getName();
+
+        AppUser appUser = appUserRepository
+                .findByUsername(username)
+                .orElse(null);
+
+        if (appUser == null) {
             return "redirect:/login";
         }
-
 
         Order order = new Order();
 
@@ -71,7 +73,6 @@ public class OrderController {
         orderRepository.save(order);
 
         cart.clear();
-        ;
 
         return "redirect:/order-confirmation";
     }
