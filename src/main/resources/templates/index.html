@@ -1,29 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Homepage</title>
 </head>
 <body>
 
-<h2>Säker webshop</h2>
+<div th:replace="fragments/header :: header"></div>
 
-<div sec:authorize="isAnonymous()">
-    <a href="/login">Logga in</a>
-</div>
+<main>
+    <h1>Welcome to our Webshop</h1>
 
-<div sec:authorize="isAuthenticated()">
-    <span>välkommen, <b sec:authentication="name">User</b>!</span>
-    <br>
-
-    <a href="/profile">Min Profil</a>
-
-    <form th:action="@{/logout}" method="post">
-        <button type="submit">Logga ut</button>
-    </form>
-</div>
+    <p>
+        <a th:href="@{/login}">Login</a>
+        <a th:href="@{/register}">Register</a>
+    </p>
 
 
+    <div th:if="${!hasConsent}">
+
+        <p>We use cookies to improve your experience.</p>
+
+        <form th:action="@{/consent}" method="post">
+            <button type="submit">Accept</button>
+        </form>
+    </div>
+
+    <div th:if="${hasConsent}">
+        <p>You have accepted cookies</p>
+    </div>
+
+</main>
+
+<div th:replace="fragments/footer :: footer"></div>
 
 </body>
 </html>
