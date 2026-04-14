@@ -5,6 +5,7 @@
     <title>Products</title>
 </head>
 <body>
+<div th:replace="fragments/header :: header"></div>
 <h2>Products</h2>
 
 <div th:each="product : ${products}">
@@ -15,6 +16,6 @@
         <button type="submit">Add to cart</button>
     </form>
 </div>
-
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

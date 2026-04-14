@@ -5,6 +5,7 @@
     <title>Cart</title>
 </head>
 <body>
+<div th:replace="fragments/header :: header"></div>
 <h2>Your cart</h2>
 <div th:each="item : ${cartItems}">
     <p th:text="${item.key.name}"></p>
@@ -21,5 +22,6 @@
     </form>
 
 </div>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
