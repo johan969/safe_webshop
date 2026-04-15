@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<h1>Min Profil</h1>
+
+<p>E-post:  <span th:text="${user.username}"></span></p>
+
+
+
+
+
+
+<form th:action="@{/profile/send-data}" method="post">
+    <button type="submit">Skicka mina uppgifter via E-mail</button>
+    <div th:if="${message}" class="alert-box">
+        <p th:text="${message}"></p>
+    </div>
+</form>
+
+
+<form th:action="@{/profile/delete}" method="post">
+    <button type="submit">Ta bort konto</button>
+</form>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
