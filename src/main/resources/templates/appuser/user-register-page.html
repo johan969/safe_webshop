@@ -7,7 +7,7 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 <form method="post" th:action="@{/register}" th:object="${register}">
-    <input placeholder="Username" th:field="${register.username}" type="text">
+    <input placeholder="Username" th:field="${register.username}" type="email">
     <input placeholder="Password" th:field="${register.password}" type="password">
     <button type="submit">Create</button>
 </form>
