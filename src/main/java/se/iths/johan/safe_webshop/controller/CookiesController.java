@@ -17,6 +17,11 @@ public class CookiesController {
         return "index";
     }
 
+    @GetMapping("/cookies")
+    public String cookies() {
+        return "cookies";
+    }
+
     @PostMapping("/consent")
     public String consent(HttpServletResponse response) {
         ResponseCookie consentCookie = ResponseCookie.from("cookie_consent", "true")
