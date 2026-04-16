@@ -24,8 +24,8 @@ public class AppUserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(Model model, String username, String password) {
-        model.addAttribute("register", service.createUser(username, password));
+    public String registerUser(Model model, String username, String password, boolean consent) {
+        model.addAttribute("register", service.createUser(username, password, consent));
         return "redirect:/";
     }
 

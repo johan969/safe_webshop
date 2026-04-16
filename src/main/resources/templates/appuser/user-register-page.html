@@ -1,17 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Register user</title>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>Register</title>
+
+    <style>
+        body {
+            background: #f6f7fb;
+            font-family: Arial, sans-serif;
+        }
+
+        .register-wrap {
+            max-width: 420px;
+            margin: 4rem auto;
+            background: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .06);
+        }
+
+        .register-wrap h1 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: .65rem .75rem;
+            margin-bottom: .9rem;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        .tos-title {
+            font-size: .9rem;
+            margin: .25rem 0 .4rem;
+            color: #495057;
+        }
+
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: .7rem;
+            border: none;
+            border-radius: 8px;
+            background: #0d6efd;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover {
+            background: #0b5ed7;
+        }
+    </style>
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<form method="post" th:action="@{/register}" th:object="${register}">
-    <input placeholder="Username" th:field="${register.username}" type="email">
-    <input placeholder="Password" th:field="${register.password}" type="password">
-    <button type="submit">Create</button>
-</form>
-<div th:replace="fragments/footer :: footer"></div>
 
+<div class="register-wrap">
+    <h1>Create account</h1>
+
+    <form method="post" th:action="@{/register}" th:object="${register}">
+        <input class="form-control" placeholder="Username (email)" required th:field="*{username}" type="email"/>
+        <input class="form-control" placeholder="Password" required th:field="*{password}" type="password"/>
+
+        <p class="tos-title">I accept the Terms of Service</p>
+        <div class="checkbox-row">
+            <input id="consent" th:field="*{consent}" type="checkbox"/>
+            <label for="consent">Accept ToS</label>
+        </div>
+
+        <button class="btn-submit" type="submit">Create</button>
+    </form>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
