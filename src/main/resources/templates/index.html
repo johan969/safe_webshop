@@ -11,12 +11,12 @@
 <main>
     <p>
        <span sec:authorize="isAnonymous()">
-           <a th:href="@{/login}">Login</a>
+
            <a th:href="@{/register}">Register</a>
        </span>
 
         <span sec:authorize="isAuthenticated()">
-            Välkommen, <span sec:authentication="name">Användare</span>!
+            Welcome, <span sec:authentication="name">User</span>!
 
         </span>
 
