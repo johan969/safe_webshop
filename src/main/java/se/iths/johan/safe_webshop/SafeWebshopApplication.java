@@ -8,7 +8,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import se.iths.johan.safe_webshop.model.AppUser;
 import se.iths.johan.safe_webshop.repository.AppUserRepository;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {
+        "se.iths.johan.safe_webshop",
+        "se.iths.johan"
+})
 public class SafeWebshopApplication {
 
     public static void main(String[] args) {
@@ -18,6 +21,8 @@ public class SafeWebshopApplication {
     @Bean
     CommandLineRunner inti(AppUserRepository appUserRepository, PasswordEncoder passwordEncoder) {
         return args -> {
+
+            //För inloggning på gmail så är lösenordet Safe_password123
 
          if (appUserRepository.findByUsername("safe.webshop.iths@gmail.com").isEmpty()){
              AppUser admin = new AppUser();
