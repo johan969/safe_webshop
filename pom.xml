@@ -112,12 +112,24 @@
             <artifactId>thymeleaf-extras-springsecurity6</artifactId>
         </dependency>
 
-
-
-
-
+        <dependency>
+            <groupId>se.iths.johan</groupId>
+            <artifactId>spring-messenger</artifactId>
+            <version>1.0.2-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/johan969/spring-messenger</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
 
     <build>
         <plugins>

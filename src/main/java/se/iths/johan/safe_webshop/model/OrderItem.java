@@ -15,8 +15,7 @@ public class OrderItem {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne
-    private Product product;
+    private String productName;
 
     private int quantity;
 
