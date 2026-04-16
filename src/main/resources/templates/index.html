@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Homepage</title>
@@ -9,11 +9,17 @@
 <div th:replace="fragments/header :: header"></div>
 
 <main>
-    <h1>Welcome to our Webshop</h1>
-
     <p>
-        <a th:href="@{/login}">Login</a>
-        <a th:href="@{/register}">Register</a>
+       <span sec:authorize="isAnonymous()">
+           <a th:href="@{/login}">Login</a>
+           <a th:href="@{/register}">Register</a>
+       </span>
+
+        <span sec:authorize="isAuthenticated()">
+            Välkommen, <span sec:authentication="name">Användare</span>!
+
+        </span>
+
     </p>
 
 
