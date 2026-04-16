@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<form method="post" th:action="@{/register}" th:object="${register}">
+    <input placeholder="Username" th:field="${register.username}" type="text">
+    <input placeholder="Password" th:field="${register.password}" type="password">
+    <button type="submit">Create</button>
+</form>
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>
