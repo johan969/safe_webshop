@@ -5,9 +5,36 @@
     <title>Order Confirmation</title>
 </head>
 <body>
+
 <div th:replace="fragments/header :: header"></div>
-<h2>Thank you for your purchase!</h2>
-<p>Order has been placed.</p>
+<main>
+
+    <h1>Order Confirmation</h1>
+
+    <p><b>User: </b> <span th:text="${order.username}"></span></p>
+
+    <p><b>Date: </b> <span th:text="${order.orderDate}"></span></p>
+
+    <h3>Products</h3>
+
+    <ul>
+        <li th:each="item : ${order.items}">
+            <span th:text="${item.productName}"></span>
+            -
+            <span th:text="${item.quantity}"></span> pcs
+            -
+            <span th:text="${item.price}"></span> kr
+        </li>
+    </ul>
+
+    <h3>
+        Total:
+        <span th:text="${order.totalPrice}"></span> kr
+    </h3>
+
+</main>
+
 <div th:replace="fragments/footer :: footer"></div>
+
 </body>
 </html>

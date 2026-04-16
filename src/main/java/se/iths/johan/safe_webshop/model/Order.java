@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +16,12 @@ public class Order {
     @GeneratedValue
     private Long id;
 
+    private String username;
+
+    private LocalDateTime orderDate;
+
     private double totalPrice;
 
-    @ManyToOne
-    private AppUser appUser;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> items = new ArrayList<>();
