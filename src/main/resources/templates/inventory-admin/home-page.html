@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+</head>
+<body>
+<form method="get">
+    <div th:each="item : ${items}">
+        <td th:text="${item.id}"></td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.price}"></td>
+        <td th:text="${item.stock}"></td>
+        <td th:text="${item.category}"></td>
+        <a th:href="@{/inventory/admin/{id}(id=${item.id})}">View</a>
+    </div>
+</form>
+<a th:href="@{/inventory/admin/new}">New item</a>
+
+</body>
+</html>
