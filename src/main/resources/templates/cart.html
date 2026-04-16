@@ -15,7 +15,7 @@
         <button type="submit">Remove from cart</button>
     </form>
 
-    <h3>Total: <span th:text="${totalPrice}"></span> kr//valuta</h3>
+    <h3>Total: <span th:text="${totalPrice}"></span> kr</h3>
 
     <form th:action="@{/checkout}" method="post">
         <button type="submit">Place order</button>

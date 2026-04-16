@@ -10,16 +10,16 @@
     <h1>Webshop</h1>
     <nav>
         <a th:href="@{/}">Home</a>
-        <a th:href="@{/products}">Produkter</a>
-        <a th:href="@{/cart}">Kundvagn</a>
-        <a th:href="@{/profile}">Profil</a>
+        <a th:href="@{/products}">Products</a>
+        <a th:href="@{/cart}">Cart</a>
+        <a th:href="@{/profile}">Profile</a>
 
         <span th:if="${#authorization.expression('isAuthenticated()')}">
-            <a th:href="@{/logout}">Logga ut</a>
+            <a th:href="@{/logout}">Log out</a>
         </span>
 
         <span th:if="${#authorization.expression('!isAuthenticated()')}">
-            <a th:href="@{/login}">Logga in</a>
+            <a th:href="@{/login}">Log in</a>
 
         </span>
 
