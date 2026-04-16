@@ -31,16 +31,16 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, OttSuccessHandler ottSuccessHandler) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/register", "/ott/sent", "/login/ott", "/ott/generate", "/ott/trigger").permitAll()
+                        .requestMatchers("/", "/login", "/cookies", "/privacy", "/register", "/ott/sent", "/login/ott", "/ott/generate", "/ott/trigger").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
-                .formLogin(form-> form
+                .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/ott/sent", true)
                         .permitAll()
                 )
-                .oneTimeTokenLogin(ott-> ott
+                .oneTimeTokenLogin(ott -> ott
                         .tokenGenerationSuccessHandler(ottSuccessHandler)
                         .loginPage("/login/ott")
                         .tokenGeneratingUrl("/ott/generate")
