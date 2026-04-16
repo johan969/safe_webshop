@@ -54,6 +54,12 @@ public class AppUserService {
 
     }
 
+    public void updateConsent(String username, boolean consent) {
+        AppUser user = findByUsername(username);
+        user.setConsent(consent);
+        appUserRepository.save(user);
+    }
+
     public AppUser findByUsername(String username) {
         return appUserRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
@@ -63,12 +69,13 @@ public class AppUserService {
         appUserRepository.delete(findByUsername(username));
     }
 
-    public AppUser createUser(String username, String password) {
-        validate.validateNewUser(username, password);
+    public AppUser createUser(String username, String password, boolean consent) {
+        validate.validateNewUser(username, password, consent);
         AppUser user = new AppUser();
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
         user.setRole("USER");
+        user.setConsent(consent);
         return appUserRepository.save(user);
     }
 
