@@ -18,6 +18,7 @@ import se.iths.johan.springmessenger.service.MessageService;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -35,22 +36,20 @@ public class AppUserServiceTest {
     @InjectMocks
     private AppUserService appUserService;
 
+    private AppUser user;
+
 
     @BeforeEach
     public void setUp() {
-
-    }
-
-    @Test
-    public void sendUserDataByEmailTest() {
-
-
-
-        AppUser user = new AppUser();
+        user = new AppUser();
         user.setUsername("test@test.se");
         user.setPassword("test123");
         user.setConsent(true);
         user.setRole("USER");
+    }
+
+    @Test
+    public void sendUserDataByEmailTest() {
 
         //Arrange
 
@@ -65,6 +64,31 @@ public class AppUserServiceTest {
 
         Email email = emailArgumentCaptor.getValue();
         assertEquals(email.getSubject(), "Användar information");
+
+    }
+
+    @Test
+    public void findByUsernameTest () {
+
+
+        when(appUserRepository.findByUsername("test@test.se")).thenReturn(Optional.of(user));
+
+
+        AppUser result = appUserService.findByUsername("test@test.se");
+
+        assertNotNull(result);
+        assertEquals(result.getPassword(), "test123");
+    }
+
+    @Test
+    public void deleteUserTest(){
+
+        when(appUserRepository.findByUsername("test@test.se")).thenReturn(Optional.of(user));
+
+        appUserService.deleteUser("test@test.se");
+
+        verify(appUserRepository, times(1)).delete(user);
+
 
     }
 }
