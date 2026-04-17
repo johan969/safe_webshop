@@ -13,6 +13,11 @@
     <p th:text="${product.price}"></p>
 
     <form th:action="@{/cart/add/{id}(id=${product.id})}" method="post">
+        <input type="number"
+               name="quantity"
+               value="1"
+               min="1"/>
+
         <button type="submit">Add to cart</button>
     </form>
 </div>

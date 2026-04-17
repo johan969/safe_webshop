@@ -14,13 +14,13 @@ import java.util.Map;
 @Service
 public class OrderService {
 
-    private EmailService emailService;
+    private final EmailService emailService;
 
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
-    private AppUserRepository appUserRepository;
+    private final AppUserRepository appUserRepository;
 
     public OrderService(EmailService emailService, ProductRepository productRepository, OrderRepository orderRepository, AppUserRepository appUserRepository) {
         this.emailService = emailService;
@@ -68,12 +68,14 @@ public class OrderService {
 
         order.setItems(orderItems);
         order.setTotalPrice(total);
+        
 
-        orderRepository.save(order);
-        emailService.sendOrderConfirmation(order);
+        Order savedOrder = orderRepository.save(order);
+
+        emailService.sendOrderConfirmation(savedOrder);
 
         cart.clear();
-        return order;
+        return savedOrder;
     }
 
 }

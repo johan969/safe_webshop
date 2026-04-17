@@ -1,9 +1,9 @@
 package se.iths.johan.safe_webshop.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import se.iths.johan.safe_webshop.model.Cart;
 import se.iths.johan.safe_webshop.model.Order;
@@ -21,9 +21,15 @@ public class OrderController {
     }
 
     @PostMapping("/checkout")
-    public String checkout(@ModelAttribute("cart") Cart cart,
-                           Principal principal, Model model) { //Principal = inloggad användare
+    public String checkout(HttpSession session,
+                           Principal principal,
+                           Model model) {
 
+        Cart cart = (Cart) session.getAttribute("cart");
+
+        if (cart == null || cart.getItems().isEmpty()) {
+            return "redirect:/cart";
+        }
         String username = principal.getName();
 
         Order order = orderService.getOrder(cart, username);

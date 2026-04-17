@@ -1,6 +1,5 @@
 package se.iths.johan.safe_webshop.controller;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +16,7 @@ import java.util.Map;
 public class CartController {
 
     @ModelAttribute("cart")
-    public Cart createCart() {
+    public Cart cart() {
         return new Cart();
     }
 
@@ -25,15 +24,11 @@ public class CartController {
     private ProductRepository productRepository;
 
     @PostMapping("/cart/add/{id}")
-    public String addToCart(@PathVariable Long id, HttpSession httpSession) {
+    public String addToCart(@PathVariable Long id,
+                            @RequestParam int quantity,
+                            @ModelAttribute("cart") Cart cart) {
 
-        Cart cart = (Cart) httpSession.getAttribute("cart");
-
-        if (cart == null) {
-            cart = new Cart();
-        }
-        cart.addProduct(id);
-        httpSession.setAttribute("cart", cart);
+        cart.addProduct(id, quantity);
 
         return "redirect:/products";
     }
@@ -41,7 +36,9 @@ public class CartController {
     @PostMapping("/cart/remove/{id}")
     public String removeFromCart(@PathVariable Long id,
                                  @ModelAttribute("cart") Cart cart) {
-        cart.removeProduct(id);
+        if (cart != null) {
+            cart.removeProduct(id);
+        }
         return "redirect:/cart";
     }
 
@@ -61,7 +58,7 @@ public class CartController {
                 total += product.getPrice() * quantity;
             }
         }
-        model.addAttribute("CartItems", cartDetails);
+        model.addAttribute("cartItems", cartDetails);
         model.addAttribute("totalPrice", total);
 
         return "cart";
