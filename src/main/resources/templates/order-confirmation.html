@@ -13,7 +13,15 @@
 
     <p><b>User: </b> <span th:text="${order.username}"></span></p>
 
-    <p><b>Date: </b> <span th:text="${order.orderDate}"></span></p>
+    <p>
+        <b>Date:</b>
+        <span th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy')}"></span>
+    </p>
+
+    <p>
+        <b>Time:</b>
+        <span th:text="${#temporals.format(order.orderDate, 'HH:mm')}"></span>
+    </p>
 
     <h3>Products</h3>
 

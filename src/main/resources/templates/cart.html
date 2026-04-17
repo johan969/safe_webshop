@@ -11,7 +11,7 @@
     <p th:text="${item.key.name}"></p>
     <p>Quantity: <span th:text="${item.value}"></span></p>
 
-    <form th:action="@{/cart/remove/{id}(id=${item.key.id})}" method="=post">
+    <form th:action="@{/cart/remove/{id}(id=${item.key.id})}" method="post">
         <button type="submit">Remove from cart</button>
     </form>
 
