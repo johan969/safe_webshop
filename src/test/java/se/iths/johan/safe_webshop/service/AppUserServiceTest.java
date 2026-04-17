@@ -88,6 +88,8 @@ public class AppUserServiceTest {
         appUserService.deleteUser("test@test.se");
 
         verify(appUserRepository, times(1)).delete(user);
+        verify(appUserRepository, times(1)).findByUsername("test@test.se");
+
 
 
     }
