@@ -56,4 +56,7 @@ public class InventoryService {
     }
 
 
+    public List<Product> getAllItems() {
+        return productRepository.findAll();
+    }
 }
