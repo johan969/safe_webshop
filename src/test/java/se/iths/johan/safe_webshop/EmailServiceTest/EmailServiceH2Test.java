@@ -1,6 +1,9 @@
 package se.iths.johan.safe_webshop.EmailServiceTest;
 
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import se.iths.johan.safe_webshop.model.Order;
 import se.iths.johan.safe_webshop.model.OrderItem;
 import se.iths.johan.safe_webshop.service.EmailService;
@@ -8,7 +11,13 @@ import se.iths.johan.safe_webshop.service.EmailService;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@SpringBootTest
+@Transactional
 public class EmailServiceH2Test {
+
+    @Autowired
+    private EmailService emailService;
+
     @Test
     public void shouldGenerateOrderConfirmation_whenValidOrderIsProvided() {
         EmailService emailService = new EmailService();
