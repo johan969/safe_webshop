@@ -17,6 +17,7 @@ import se.iths.johan.safe_webshop.service.OrderService;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -49,7 +50,7 @@ public class EmailServiceMockTest {
 
         Product product = new Product();
         product.setId(1L);
-        product.setName("Samsung");
+        product.setName("Laptop");
         product.setPrice(17000.0);
 
         when(productRepository.findById(1L))
@@ -62,10 +63,13 @@ public class EmailServiceMockTest {
         cart.addProduct(1L);
 
 
-        orderService.getOrder(cart, username);
+        Order result = orderService.getOrder(cart, username);
 
         verify(emailService, times(1))
                 .sendOrderConfirmation(any(Order.class));
+
+        assertEquals(1, result.getItems().size());
+        assertEquals(17000.0, result.getTotalPrice(), 0.01);
 
 
     }
