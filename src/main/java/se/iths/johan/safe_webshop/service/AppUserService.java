@@ -18,13 +18,13 @@ public class AppUserService {
     private final AppUserRepository appUserRepository;
     private final MessageService messageService;
     private final AppUserValidate validate;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    public AppUserService(AppUserRepository appUserRepository, MessageService messageService, AppUserValidate validate) {
+    public AppUserService(AppUserRepository appUserRepository, MessageService messageService, AppUserValidate validate, PasswordEncoder passwordEncoder) {
         this.appUserRepository = appUserRepository;
         this.messageService = messageService;
         this.validate = validate;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UserDetails loadUserByUsername(String username) {
