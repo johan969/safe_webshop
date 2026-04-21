@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import se.iths.johan.safe_webshop.model.Cart;
 import se.iths.johan.safe_webshop.model.Order;
+import se.iths.johan.safe_webshop.service.EmailService;
 import se.iths.johan.safe_webshop.service.OrderService;
 
 import java.security.Principal;
@@ -14,9 +15,11 @@ import java.security.Principal;
 @Controller
 public class OrderController {
 
+    private EmailService emailService;
     private OrderService orderService;
 
-    public OrderController(OrderService orderService) {
+    public OrderController(EmailService emailService, OrderService orderService) {
+        this.emailService = emailService;
         this.orderService = orderService;
     }
 
@@ -36,6 +39,8 @@ public class OrderController {
         if (order == null) return "redirect:/login";
 
         model.addAttribute("order", order);
+
+        emailService.sendOrderConfirmation(order);
         return "order-confirmation";
     }
 
