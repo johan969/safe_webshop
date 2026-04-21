@@ -86,7 +86,7 @@ public class AppUserServiceIntegrationTest {
         AppUser foundUser = appUserService.findByUsername("test");
 
         assertEquals("test", foundUser.getUsername());
-        assertEquals(3, foundUser.getId());
+        assertEquals("USER", foundUser.getRole());
         assertTrue(foundUser.getConsent());
 
     }
