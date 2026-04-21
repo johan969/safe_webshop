@@ -45,20 +45,19 @@ public class AppUserServiceIntegrationTest {
     }
 
     @Test
-    public void loadUserByUsernameTest(){
+    public void loadUserByUsernameTest() {
 
 
+        UserDetails userDetails = appUserService.loadUserByUsername("Test@test.se");
 
-        UserDetails  userDetails = appUserService.loadUserByUsername("Test@test.se");
-
-        assertEquals("password",  userDetails.getPassword());
+        assertEquals("password", userDetails.getPassword());
 
 
     }
 
     @Test
-    public void sendUserDataByEmailTest(){
-        
+    public void sendUserDataByEmailTest() {
+
         appUserService.sendUserDataByEmail("Test@test.se");
 
         verify(messageService, times(1)).send(any());
@@ -67,18 +66,29 @@ public class AppUserServiceIntegrationTest {
     }
 
     @Test
-    public void findUserByUsernameTest(){
+    public void findUserByUsernameTest() {
 
         AppUser user = appUserService.findByUsername("Test@test.se");
-        assertEquals("password",  user.getPassword());
+        assertEquals("password", user.getPassword());
 
     }
 
     @Test
-    public void deleteUserByUsernameTest(){
+    public void deleteUserByUsernameTest() {
         appUserService.deleteUser("Test@test.se");
 
         assertTrue(appUserRepository.findByUsername("Test@test.se").isEmpty());
     }
 
+    @Test
+    public void createUserTest() {
+        AppUser user = appUserService.createUser("test", "123", true);
+        AppUser foundUser = appUserService.findByUsername("test");
+
+        assertEquals("test", foundUser.getUsername());
+        assertEquals("USER", foundUser.getRole());
+        assertTrue(foundUser.getConsent());
+
+    }
 }
+

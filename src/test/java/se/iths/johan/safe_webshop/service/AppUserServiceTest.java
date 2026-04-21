@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import se.iths.johan.safe_webshop.model.AppUser;
 import se.iths.johan.safe_webshop.repository.AppUserRepository;
 import se.iths.johan.safe_webshop.validation.AppUserValidate;
@@ -17,8 +18,7 @@ import se.iths.johan.springmessenger.service.MessageService;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,6 +32,9 @@ public class AppUserServiceTest {
 
     @Mock
     private AppUserValidate appUserValidate;
+
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
     @InjectMocks
     private AppUserService appUserService;
@@ -68,7 +71,7 @@ public class AppUserServiceTest {
     }
 
     @Test
-    public void findByUsernameTest () {
+    public void findByUsernameTest() {
 
 
         when(appUserRepository.findByUsername("test@test.se")).thenReturn(Optional.of(user));
@@ -81,7 +84,7 @@ public class AppUserServiceTest {
     }
 
     @Test
-    public void deleteUserTest(){
+    public void deleteUserTest() {
 
         when(appUserRepository.findByUsername("test@test.se")).thenReturn(Optional.of(user));
 
@@ -91,6 +94,23 @@ public class AppUserServiceTest {
         verify(appUserRepository, times(1)).findByUsername("test@test.se");
 
 
+    }
 
+    @Test
+    public void createUserTest() {
+        when(passwordEncoder.encode("123")).thenReturn("encoded123");
+        when(appUserRepository.save(any(AppUser.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        AppUser createdUser = appUserService.createUser("123", "123", true);
+
+        assertNotNull(createdUser);
+        assertEquals("123", createdUser.getUsername());
+        assertEquals("encoded123", createdUser.getPassword());
+        assertEquals("USER", createdUser.getRole());
+        assertTrue(createdUser.getConsent());
+
+        verify(appUserValidate).validateNewUser("123", "123", true);
+        verify(passwordEncoder).encode("123");
+        verify(appUserRepository).save(any(AppUser.class));
     }
 }
