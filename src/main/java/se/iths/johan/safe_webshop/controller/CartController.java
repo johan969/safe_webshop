@@ -26,7 +26,23 @@ public class CartController {
     @PostMapping("/cart/add/{id}")
     public String addToCart(@PathVariable Long id,
                             @RequestParam int quantity,
-                            @ModelAttribute("cart") Cart cart) {
+                            @ModelAttribute("cart") Cart cart,
+                            Model model) {
+        Product product = productRepository.findById(id).orElse(null);
+
+        if (product == null) {
+            return "redirect:/products";
+        }
+
+        int stock = product.getStock();
+        int alreadyInCart = cart.getItems().getOrDefault(id, 0);
+        int totalRequested = alreadyInCart + quantity;
+
+        if (totalRequested > stock) {
+            model.addAttribute("error",
+                    "There is only " + stock + "in stock.");
+            return "products";
+        }
 
         cart.addProduct(id, quantity);
 

@@ -52,6 +52,7 @@ public class EmailServiceMockTest {
         product.setId(1L);
         product.setName("Laptop");
         product.setPrice(17000.0);
+        product.setStock(10);
 
         when(productRepository.findById(1L))
                 .thenReturn(Optional.of(product));

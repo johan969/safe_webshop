@@ -52,10 +52,12 @@ public class MockOrderServiceTest {
         Product product1 = new Product();
         product1.setName("MSI Gaming Laptop");
         product1.setPrice(10000);
+        product1.setStock(10);
 
         Product product2 = new Product();
         product2.setName("Wireless Mouse");
         product2.setPrice(200);
+        product2.setStock(10);
 
         when(productRepository.findById(1L))
                 .thenReturn(Optional.of(product1));
@@ -96,6 +98,7 @@ public class MockOrderServiceTest {
         Product product = new Product();
         product.setName("MSI Gaming Laptop");
         product.setPrice(10000);
+        product.setStock(10);
 
         when(productRepository.findById(1L))
                 .thenReturn(Optional.of(product));
@@ -107,5 +110,31 @@ public class MockOrderServiceTest {
 
         assertTrue(cart.getItems().isEmpty());
 
+    }
+
+    @Test
+    void shouldThrowIfOutOfStock() {
+
+        String username = "testuser";
+
+        AppUser appuser = new AppUser();
+        appuser.setUsername(username);
+
+        when(appUserRepository.findByUsername(username))
+                .thenReturn(Optional.of(appuser));
+
+        Product product = new Product();
+        product.setName("MSI Gaming Laptop");
+        product.setPrice(10000);
+        product.setStock(1);
+
+        when(productRepository.findById(1L))
+                .thenReturn(Optional.of(product));
+
+        Cart cart = new Cart();
+        cart.getItems().put(1L, 2);
+
+        assertThrows(RuntimeException.class, () ->
+                orderService.getOrder(cart, username));
     }
 }

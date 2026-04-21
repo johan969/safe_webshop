@@ -52,6 +52,7 @@ public class H2OrderServiceTest {
         Product product = new Product();
         product.setName("MSI Laptop");
         product.setPrice(10000);
+        product.setStock(10);
         productRepository.save(product);
 
         Cart cart = new Cart();
