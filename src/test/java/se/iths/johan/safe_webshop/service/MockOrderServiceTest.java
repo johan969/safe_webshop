@@ -16,6 +16,7 @@ import se.iths.johan.safe_webshop.repository.ProductRepository;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -62,14 +63,18 @@ public class MockOrderServiceTest {
         when(productRepository.findById(2L))
                 .thenReturn(Optional.of(product2));
 
+        when(orderRepository.save(any(Order.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0)); //
+
         Cart cart = new Cart();
         cart.getItems().put(1L, 2);
         cart.getItems().put(2L, 4);
 
         Order order = orderService.getOrder(cart, username);
+        System.out.println("Order: " + order);
 
         assertNotNull(order);
-        assertEquals(20800, order.getTotalPrice());
+        assertEquals(20800, order.getTotalPrice(), 0.001);
         assertEquals(2, order.getItems().size());
 
         verify(orderRepository).save(order);
