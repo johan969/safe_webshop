@@ -30,10 +30,31 @@ jobs:
         server-id: github
         server-username: GITHUB_ACTOR
         server-password: GITHUB_TOKEN
+
+
+
+
     - name: Build with Maven
       run: mvn -B package --file pom.xml -U
       env:
-       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+           # logga in på dockerhub
+    - name: Dockerhub login
+      uses: docker/login-action@v3
+      with:
+       username: ${{ secrets.DOCKERHUB_USERNAME }}
+       password: ${{ secrets.DOCKERHUB_PASSWORD}}
+
+    - name: build and push docker image
+      uses: docker/build-push-action@v5
+      with:
+       context: .
+       push: true
+       tags: ${{ secrets.DOCKERHUB_USERNAME }}/safe-webshop:1.0.0
+
+
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph

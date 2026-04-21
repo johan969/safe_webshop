@@ -10,7 +10,7 @@
     </parent>
     <groupId>se.iths.johan</groupId>
     <artifactId>safe_webshop</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>safe_webshop</name>
     <description>safe_webshop</description>
     <url/>
