@@ -11,7 +11,7 @@ import se.iths.johan.safe_webshop.repository.ProductRepository;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -40,5 +40,16 @@ public class MockProductServiceTest {
 
         assertEquals(2, result.size());
 
+    }
+
+    @Test
+    void saveProductShouldSave() {
+
+        Product product = new Product();
+        product.setName("New product");
+
+        productService.save(product);
+
+        verify(productRepository, times(1)).save(product);
     }
 }

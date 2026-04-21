@@ -36,4 +36,20 @@ public class H2ProductServiceTest {
         assertEquals("MSI Laptop", products.get(0).getName());
     }
 
+    @Test
+    void saveProductShouldSave() {
+
+        Product product = new Product();
+        product.setName("New product");
+        product.setPrice(100);
+
+        productService.save(product);
+
+        List<Product> products = productRepository.findAll();
+
+        assertEquals(1, products.size());
+        assertEquals("New product", products.get(0).getName());
+    }
+
+
 }
