@@ -47,28 +47,32 @@ public class OrderService {
 
         for (Map.Entry<Long, Integer> entry : cart.getItems().entrySet()) {
 
-            Product product = productRepository.findById(entry.getKey()).orElse(null);
+            Long productId = entry.getKey();
+            int quantity = entry.getValue();
 
-            if (product != null) {
+            Product product = productRepository.findById(productId).orElseThrow();
 
-                int quantity = entry.getValue();
-
-                OrderItem item = new OrderItem();
-                item.setProductName(product.getName());
-                item.setQuantity(quantity);
-                item.setPrice(product.getPrice());
-                item.setOrder(order);
-
-                orderItems.add(item);
-
-                total += product.getPrice() * quantity;
-
+            if (product.getStock() < quantity) {
+                throw new RuntimeException(product.getName() + " is out of stock!");
             }
+
+            OrderItem item = new OrderItem();
+            item.setProductName(product.getName());
+            item.setQuantity(quantity);
+            item.setPrice(product.getPrice());
+            item.setOrder(order);
+
+            orderItems.add(item);
+
+            total += product.getPrice() * quantity;
+
+            product.setStock(product.getStock() - quantity);
+            productRepository.save(product);
         }
 
         order.setItems(orderItems);
         order.setTotalPrice(total);
-        
+
 
         Order savedOrder = orderRepository.save(order);
 
