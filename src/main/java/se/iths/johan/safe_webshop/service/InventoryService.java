@@ -36,6 +36,7 @@ public class InventoryService {
         existingItem.setName(updatedItem.getName());
         existingItem.setPrice(updatedItem.getPrice());
         existingItem.setStock(updatedItem.getStock());
+        existingItem.setCategory(updatedItem.getCategory());
         existingItem.setImageUrl(updatedItem.getImageUrl());
         return productRepository.save(existingItem);
     }
@@ -55,4 +56,7 @@ public class InventoryService {
     }
 
 
+    public List<Product> getAllItems() {
+        return productRepository.findAll();
+    }
 }

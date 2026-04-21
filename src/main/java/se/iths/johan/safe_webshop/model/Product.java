@@ -21,6 +21,15 @@ public class Product {
     private int stock;
     private String imageUrl;
 
+    public Product(Long id, String name, double price, String category, int stock, String imageUrl) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.category = category;
+        this.stock = stock;
+        this.imageUrl = imageUrl;
+    }
+
     public Product() {
 
     }
