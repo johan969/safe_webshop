@@ -26,17 +26,17 @@ public class EmailService {
 
         message.append("Order Confirmation").append("\n");
         message.append("Order Number: " + order.getId()).append("\n\n");
-        message.append("To: "+ order.getUsername()).append("\n\n");
-        message.append("Date: "+ date).append("\n\n");
+        message.append("To: " + order.getUsername()).append("\n\n");
+        message.append("Date: " + date).append("\n\n");
 
         for (OrderItem item : order.getItems()) {
             message.append("Product: " + item.getProductName()).append("\n");
             message.append("Quantity: " + item.getQuantity()).append("\n");
-            message.append("Price: " + item.getPrice()+ "kr").append("\n");
+            message.append("Price: " + item.getPrice() + "kr").append("\n");
             message.append("===========================").append("\n\n\n");
         }
 
-        message.append("Total Price:" +order.getTotalPrice()+ "kr").append("\n");
+        message.append("Total Price:" + order.getTotalPrice() + "kr").append("\n");
 
         Email email = new Email();
         email.setRecipient(order.getUsername());

@@ -22,14 +22,14 @@ public class EmailServiceH2Test {
     public void shouldGenerateOrderConfirmation_whenValidOrderIsProvided() {
 
         Order order = new Order();
-        order.setUsername("testuser@test.se");
+        order.setUsername("test123@testuser.se");
         order.setOrderDate(LocalDateTime.now());
-        order.setTotalPrice(18000.0);
+        order.setTotalPrice(21000.0);
 
         OrderItem orderItem = new OrderItem();
-        orderItem.setProductName("Laptop");
+        orderItem.setProductName("TV");
         orderItem.setQuantity(1);
-        orderItem.setPrice(18000.0);
+        orderItem.setPrice(21000.0);
 
         order.setItems(List.of(orderItem));
 

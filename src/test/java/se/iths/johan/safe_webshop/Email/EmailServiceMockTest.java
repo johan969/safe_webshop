@@ -5,74 +5,57 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import se.iths.johan.safe_webshop.model.AppUser;
-import se.iths.johan.safe_webshop.model.Cart;
 import se.iths.johan.safe_webshop.model.Order;
-import se.iths.johan.safe_webshop.model.Product;
-import se.iths.johan.safe_webshop.repository.AppUserRepository;
-import se.iths.johan.safe_webshop.repository.OrderRepository;
-import se.iths.johan.safe_webshop.repository.ProductRepository;
+import se.iths.johan.safe_webshop.model.OrderItem;
 import se.iths.johan.safe_webshop.service.EmailService;
-import se.iths.johan.safe_webshop.service.OrderService;
+import se.iths.johan.springmessenger.model.Email;
+import se.iths.johan.springmessenger.service.MessageService;
 
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class EmailServiceMockTest {
     @Mock
-    private EmailService emailService;
-
-    @Mock
-    private OrderRepository orderRepository;
-
-    @Mock
-    private ProductRepository productRepository;
-
-    @Mock
-    private AppUserRepository appUserRepository;
+    private MessageService messageService;
 
     @InjectMocks
-    private OrderService orderService;
+    private EmailService emailService;
 
     @Test
-    public void shouldSendOrderConfirmationEmail_whenOrderIsCreated() {
-        String username = "test123@test12.se";
+    public void shouldSendEmailWithCorrectContent_WhenOrderIsCreated() {
 
-        AppUser appUser = new AppUser();
-        appUser.setUsername(username);
+        String username = "testuser@test.se";
 
-        when(appUserRepository.findByUsername(username))
-                .thenReturn(Optional.of(appUser));
+        Order order = new Order();
+        order.setId(1L);
+        order.setUsername(username);
+        order.setOrderDate((LocalDateTime.of(2026, 4, 22, 14, 30)));
+        order.setTotalPrice(17000.0);
 
-        Product product = new Product();
-        product.setId(1L);
-        product.setName("Laptop");
-        product.setPrice(17000.0);
-        product.setStock(10);
+        OrderItem orderItem = new OrderItem();
+        orderItem.setProductName("Laptop");
+        orderItem.setQuantity(1);
+        orderItem.setPrice(17000.0);
 
-        when(productRepository.findById(1L))
-                .thenReturn(Optional.of(product));
+        order.setItems(List.of(orderItem));
 
-        when(orderRepository.save(any(Order.class)))
-                .thenAnswer(invocation -> invocation.getArgument(0));
+        emailService.sendOrderConfirmation(order);
 
-        Cart cart = new Cart();
-        cart.addProduct(1L, 1);
+        verify(messageService, times(1))
+                .send(any(Email.class));
 
-
-        Order result = orderService.getOrder(cart, username);
-
-        verify(emailService, times(1))
-                .sendOrderConfirmation(any(Order.class));
-
-        assertEquals(1, result.getItems().size());
-        assertEquals(17000.0, result.getTotalPrice(), 0.01);
-
+        assertEquals(username, order.getUsername());
+        assertEquals(1, order.getItems().size());
+        
+        assertEquals("Laptop", order.getItems().get(0).getProductName());
+        assertEquals(1, order.getItems().get(0).getQuantity());
+        assertEquals(17000.0, order.getTotalPrice());
 
     }
+
 
 }
