@@ -16,7 +16,7 @@
 
         <span th:if="${#authorization.expression('isAuthenticated()')}">
             <form th:action="@{/logout}" method="post" style="display: inline;">
-          <button type="submit" style="background:none; border:none; padding:0; font:inherit; cursor:pointer; text-decoration:underline; color: #0000EE;">Logout</button>
+          <button type="submit" class="logout-button">Logout</button>
             </form>
 
         </span>
