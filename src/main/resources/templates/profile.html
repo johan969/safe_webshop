@@ -9,10 +9,12 @@
 <h1>My profile</h1>
 
 <p>E-post: <span th:text="${user.username}"></span></p>
+<p>Role: <span th:text="${user.role}"></span></p>
+<p>Consent: <span th:text="${user.consent}"></span></p>
 
 
 <form th:action="@{/profile/send-data}" method="post">
-    <button type="submit">Send my details via E-mail</button>
+    <button type="submit">Send my user details to my email</button>
     <div th:if="${message}" class="alert-box">
         <p th:text="${message}"></p>
     </div>

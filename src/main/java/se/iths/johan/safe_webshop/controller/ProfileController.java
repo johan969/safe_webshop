@@ -35,9 +35,9 @@ public class ProfileController {
     public String sendData(RedirectAttributes ra, Authentication auth) {
         try{
             appUserService.sendUserDataByEmail(auth.getName());
-            ra.addFlashAttribute("message", "användar information har skickats till:"+ auth.getName());
+            ra.addFlashAttribute("message", "User info has been  sent to: "+ auth.getName());
         }catch(Exception e){
-            ra.addFlashAttribute("message", "oops! något gick fel");
+            ra.addFlashAttribute("message", "oops! something went wrong");
         }
         return "redirect:/profile";
 
