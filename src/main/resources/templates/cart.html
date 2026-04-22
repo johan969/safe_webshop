@@ -6,12 +6,18 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+
+
+<main>
+
+
 <h2>Your cart</h2>
-<div th:each="item : ${cartItems}">
+<div class="product-item" th:each="item : ${cartItems}">
     <p th:text="${item.key.name}"></p>
     <img th:src="${item.key.imageUrl}" width="200"/>
 
-    <p>Quantity: <span th:text="${item.value}"></span></p>
+    <p>Quantity: <span th:text="${item.value}+' pcs'"></span></p>
 
     <form th:action="@{/cart/remove/{id}(id=${item.key.id})}" method="post">
         <button type="submit">Remove from cart</button>
@@ -26,7 +32,7 @@
 <form th:action="@{/checkout}" method="post">
     <button type="submit">Place order</button>
 </form>
-
+</main>
 <div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

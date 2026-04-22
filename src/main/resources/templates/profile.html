@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
+<main>
+
+
+
 <h1>My profile</h1>
 
 <p>E-post: <span th:text="${user.username}"></span></p>
@@ -24,6 +29,7 @@
 <form th:action="@{/profile/delete}" method="post">
     <button type="submit">Delete account</button>
 </form>
+</main>
 <div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

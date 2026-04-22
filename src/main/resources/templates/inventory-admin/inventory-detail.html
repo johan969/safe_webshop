@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Item Detail</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<main>
+
+
+
 <div>
     <p th:text="'id: ' + ${detail.id}"></p>
     <p th:text="'name: ' + ${detail.name}"></p>
-    <p th:text="'price: ' + ${detail.price}"></p>
+    <p th:text="'price: ' + ${detail.price}+' kr'"></p>
     <p th:text="'category: ' + ${detail.category}"></p>
     <p th:text="'image: ' + ${detail.imageUrl}"></p>
 </div>
@@ -22,5 +27,6 @@
 </form>
 <a th:href="@{/inventory/admin/{id}/edit(id=${detail.id})}" th:text="Edit"></a>
 <a th:href="@{/inventory/admin}">go to admin homepage</a>
+</main>
 </body>
 </html>

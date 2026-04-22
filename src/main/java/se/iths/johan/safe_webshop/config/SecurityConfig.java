@@ -31,7 +31,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, OttSuccessHandler ottSuccessHandler) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/cookies", "/privacy", "/consent", "/register", "/ott/sent", "/login/ott", "/ott/generate", "/ott/trigger").permitAll()
+                        .requestMatchers("/", "/login", "/cookies", "/privacy", "/consent", "/register", "/ott/sent", "/login/ott", "/ott/generate", "/ott/trigger","/css/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
