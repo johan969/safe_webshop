@@ -11,6 +11,8 @@
 <div th:each="product : ${products}">
     <h3 th:text="${product.name}"></h3>
     <p th:text="${product.price}"></p>
+    <img th:src="${product.imageUrl}" width="200"/>
+
 
     <p th:if="${product.stock > 0}">
         In stock:

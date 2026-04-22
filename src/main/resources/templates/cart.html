@@ -9,6 +9,8 @@
 <h2>Your cart</h2>
 <div th:each="item : ${cartItems}">
     <p th:text="${item.key.name}"></p>
+    <img th:src="${item.key.imageUrl}" width="200"/>
+
     <p>Quantity: <span th:text="${item.value}"></span></p>
 
     <form th:action="@{/cart/remove/{id}(id=${item.key.id})}" method="post">
